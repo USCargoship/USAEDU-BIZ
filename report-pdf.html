@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports & Documents - American Institute of Entrepreneurship</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* --- Specific Styles for Reports & PDF Page --- */
+
+        /* Report Card styling (similar to video/presentation cards) */
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .report-card {
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px var(--shadow);
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .report-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .report-card .report-thumbnail {
+            width: 100%;
+            height: 180px; /* Consistent thumbnail height */
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .report-card h3 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .report-card p {
+            font-size: 0.95em;
+            color: #666;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .report-card .button {
+            margin-top: auto;
+            align-self: center;
+        }
+
+        /* Modal / Password Overlay Styling (reused/adapted from previous pages) */
+        .modal-overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 90%;
+            width: 900px; /* Wider for PDF viewing */
+            height: 90%; /* Take up more height */
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        @media (max-width: 1000px) {
+            .modal-content {
+                width: 95%;
+                height: 85%;
+            }
+        }
+
+        .modal-content .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #aaa;
+            transition: color 0.3s ease;
+        }
+
+        .modal-content .close-button:hover {
+            color: #666;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .modal-content input[type="password"] {
+            width: calc(100% - 40px);
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1em;
+            text-align: center;
+        }
+
+        .modal-content .message {
+            color: red;
+            margin-top: -10px;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+
+        .modal-content .pdf-embed-container {
+            flex-grow: 1; /* Takes remaining space */
+            background-color: #eee;
+            border-radius: 5px;
+            overflow: hidden; /* Ensure iframe stays within bounds */
+            display: none; /* Hidden by default */
+            position: relative; /* For the iframe */
+        }
+        .modal-content .pdf-embed-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .report-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <div class="logo-container">
+                <a href="index.html" class="logo-link">
+                    <span class="logo-aie">AIE</span>
+                    <span class="logo-text">American Institute of Entrepreneurship</span>
+                </a>
+            </div>
+            <nav class="nav">
+                <ul class="nav-list" id="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="courses.html" class="nav-link">Courses & Learning</a></li>
+                    <li><a href="insights-inspiration.html" class="nav-link active">Insights & Inspiration</a></li>
+                    <li><a href="news-innovation.html" class="nav-link">News & Innovation</a></li>
+                    <li><a href="contribute.html" class="nav-link">Contribute to AIE</a></li>
+                    <li><a href="membership-pricing.html" class="nav-link">Membership & Pricing</a></li>
+                    <li><a href="join-partnerships.html" class="nav-link">Join AIE / Partnerships</a></li>
+                    <li><a href="about.html" class="nav-link">About AIE</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+                    <li><a href="#" class="nav-button">Register / Login</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero hero-small hero-reports">
+            <div class="container">
+                <h1>In-Depth Reports & PDF Documents</h1>
+                <p>Access exclusive research, detailed whitepapers, and strategic reports on entrepreneurship, market trends, and global development.</p>
+                <div class="hero-actions">
+                    <a href="#report-list" class="button button-primary">Browse Reports</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="report-list" class="section-padded content-section">
+            <div class="container">
+                <h2 class="section-title">Our Research & Strategic Documents</h2>
+                <p class="section-subtitle">Unlock valuable PDF content with a password/PIN for each report.</p>
+
+                <div class="report-grid">
+                    <div class="report-card">
+                        <img src="https://via.placeholder.com/400x225?text=Africa+Ecosystem+Report" alt="Africa Startup Ecosystem Report" class="report-thumbnail">
+                        <h3>Africa Startup Ecosystem Report 2025</h3>
+                        <p>A comprehensive analysis of the latest trends, investments, and growth sectors in African startup ecosystems.</p>
+                        <button class="button button-primary access-report-button" data-report-id="report1" data-password="report123">Access Report</button>
+                    </div>
+                    <div class="report-card">
+                        <img src="https://via.placeholder.com/400x225?text=US+SME+Challenges" alt="US SME Challenges Report" class="report-thumbnail">
+                        <h3>Challenges and Opportunities for US SMEs in a Shifting Economy</h3>
+                        <p>Exploring the hurdles and pathways to success for Small and Medium Enterprises across America.</p>
+                        <button class="button button-primary access-report-button" data-report-id="report2" data-password="report456">Access Report</button>
+                    </div>
+                    <div class="report-card">
+                        <img src="https://via.placeholder.com/400x225?text=Sustainable+Dev+Goals" alt="SDG Entrepreneurship Report" class="report-thumbnail">
+                        <h3>Entrepreneurship & Sustainable Development Goals (SDGs)</h3>
+                        <p>How entrepreneurial ventures are contributing to achieving the United Nations Sustainable Development Goals globally.</p>
+                        <button class="button button-primary access-report-button" data-report-id="report3" data-password="report789">Access Report</button>
+                    </div>
+                    </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <span class="logo-aie">AIE</span>
+                <span class="logo-text">American Institute of Entrepreneurship</span>
+            </div>
+            <div class="footer-social">
+                <a href="#" class="social-icon">F</a> 
+                <a href="#" class="social-icon">in</a> 
+                <a href="#" class="social-icon">X</a> 
+                <a href="#" class="social-icon">YT</a>
+            </div>
+            <div class="footer-links">
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-service.html">Terms of Service</a>
+            </div>
+            <p class="footer-copyright">&copy; 2025 American Institute of Entrepreneurship. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="reportModalOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-button" id="closeReportModalButton">×</button>
+            <h3 id="modalReportTitle">Enter Password to Access Report</h3>
+            <input type="password" id="reportPasswordInput" placeholder="Enter password/PIN">
+            <div class="message" id="modalReportMessage"></div>
+            <button class="button button-primary" id="submitReportPasswordButton">Submit</button>
+            <div id="reportEmbedContainer" class="pdf-embed-container" style="display:none;">
+                </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // --- Client-Side Script for Report/PDF Password Protection ---
+        // IMPORTANT SECURITY NOTE:
+        // This client-side password protection is FOR DEMONSTRATION PURPOSES ONLY.
+        // It is NOT secure and can be easily bypassed by anyone with basic browser development tools.
+        // For a real-world, secure application, access MUST be controlled on the backend
+        // by checking user authentication, membership status, and serving secure content URLs/embeds.
+        // Your friend, the developer, will need to implement this securely on the server-side.
+
+        // --- Copy Protection Disclaimer ---
+        // Client-side methods to prevent copying (like disabling right-click or text selection)
+        // are easily bypassed by tech-savvy users. True content protection requires server-side DRM,
+        // secure PDF viewers that prevent download/print, or rendering PDFs as images on the fly,
+        // which are beyond the scope of frontend HTML/CSS/JS.
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const modalOverlay = document.getElementById('reportModalOverlay');
+            const closeModalButton = document.getElementById('closeReportModalButton');
+            const passwordInput = document.getElementById('reportPasswordInput');
+            const submitButton = document.getElementById('submitReportPasswordButton');
+            const messageDiv = document.getElementById('modalReportMessage');
+            const embedContainer = document.getElementById('reportEmbedContainer');
+
+            let currentReportId = null;
+            let currentCorrectPassword = null;
+
+            const reportData = {
+                // Hardcoded data for client-side demo
+                // In a real app, this data would come securely from the backend
+                "report1": {
+                    password: "report123",
+                    embedUrl: "https://docs.google.com/viewer?url=https://www.afdb.org/sites/default/files/2022/10/31/african_economic_outlook_2022_-_entrepreneurship_and_industrialisation.pdf&embedded=true" // Example PDF - African Economic Outlook 2022
+                },
+                "report2": {
+                    password: "report456",
+                    embedUrl: "https://docs.google.com/viewer?url=https://www.irs.gov/pub/irs-pdf/p583.pdf&embedded=true" // Example PDF - IRS Pub 583 (Tax Guide)
+                },
+                "report3": {
+                    password: "report789",
+                    embedUrl: "https://docs.google.com/viewer?url=https://www.un.org/sustainabledevelopment/wp-content/uploads/2016/08/SDGs_handbook_final_print.pdf&embedded=true" // Example PDF - SDG Handbook
+                }
+            };
+
+            document.querySelectorAll('.access-report-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    currentReportId = this.dataset.reportId;
+                    currentCorrectPassword = this.dataset.password;
+                    
+                    // Reset modal state
+                    passwordInput.value = '';
+                    messageDiv.textContent = '';
+                    embedContainer.innerHTML = '';
+                    embedContainer.style.display = 'none';
+                    passwordInput.style.display = 'block';
+                    submitButton.style.display = 'block';
+                    document.getElementById('modalReportTitle').textContent = 'Enter Password to Access Report';
+
+                    modalOverlay.style.display = 'flex'; // Show modal
+                });
+            });
+
+            closeModalButton.addEventListener('click', function() {
+                modalOverlay.style.display = 'none'; // Hide modal
+                embedContainer.innerHTML = ''; // Clear embedded content
+            });
+
+            modalOverlay.addEventListener('click', function(event) {
+                if (event.target === modalOverlay) {
+                    modalOverlay.style.display = 'none';
+                    embedContainer.innerHTML = '';
+                }
+            });
+
+            submitButton.addEventListener('click', function() {
+                const enteredPassword = passwordInput.value;
+
+                if (enteredPassword === currentCorrectPassword) {
+                    messageDiv.textContent = '';
+                    passwordInput.style.display = 'none';
+                    submitButton.style.display = 'none';
+                    document.getElementById('modalReportTitle').textContent = 'Viewing Report'; // Update title
+
+                    const reportInfo = reportData[currentReportId];
+                    if (reportInfo && reportInfo.embedUrl) {
+                        embedContainer.innerHTML = `
+                            <iframe src="${reportInfo.embedUrl}" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+                        `;
+                        embedContainer.style.display = 'block';
+
+                        // Attempt to deter copying for the embedded content area (client-side only)
+                        embedContainer.style.userSelect = 'none'; // Disable text selection
+                        embedContainer.style.webkitUserSelect = 'none';
+                        embedContainer.style.msUserSelect = 'none';
+                        embedContainer.style.mozUserSelect = 'none';
+                        embedContainer.oncontextmenu = () => false; // Disable right-click
+
+                    } else {
+                        messageDiv.textContent = 'Report not found.';
+                    }
+                } else {
+                    messageDiv.textContent = 'Incorrect password. Please try again.';
+                }
+            });
+
+            passwordInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    submitButton.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

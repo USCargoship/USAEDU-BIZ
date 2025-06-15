@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Case Studies - American Institute of Entrepreneurship</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* --- Specific Styles for Video Case Studies Page --- */
+
+        /* Video Card styling */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .video-card {
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px var(--shadow);
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Pushes button to bottom */
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-card .video-thumbnail {
+            width: 100%;
+            height: 180px; /* Consistent thumbnail height */
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .video-card h3 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .video-card p {
+            font-size: 0.95em;
+            color: #666;
+            margin-bottom: 15px;
+            flex-grow: 1; /* Allows description to take up available space */
+        }
+
+        .video-card .button {
+            margin-top: auto; /* Aligns buttons at the bottom */
+            align-self: center; /* Centers the button within the card */
+        }
+
+        /* Modal / Password Overlay Styling */
+        .modal-overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+
+        .modal-content .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #aaa;
+            transition: color 0.3s ease;
+        }
+
+        .modal-content .close-button:hover {
+            color: #666;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .modal-content input[type="password"] {
+            width: calc(100% - 40px); /* Adjust for padding/button */
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1em;
+            text-align: center;
+        }
+
+        .modal-content .message {
+            color: red;
+            margin-top: -10px;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+
+        .modal-content .video-player-container {
+            margin-top: 20px;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            position: relative;
+            background-color: #000;
+        }
+
+        .modal-content .video-player-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <div class="logo-container">
+                <a href="index.html" class="logo-link">
+                    <span class="logo-aie">AIE</span>
+                    <span class="logo-text">American Institute of Entrepreneurship</span>
+                </a>
+            </div>
+            <nav class="nav">
+                <ul class="nav-list" id="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="courses.html" class="nav-link">Courses & Learning</a></li>
+                    <li><a href="insights-inspiration.html" class="nav-link active">Insights & Inspiration</a></li>
+                    <!-- Consider placing this page under Insights or a new 'Media' section -->
+                    <li><a href="news-innovation.html" class="nav-link">News & Innovation</a></li>
+                    <li><a href="contribute.html" class="nav-link">Contribute to AIE</a></li>
+                    <li><a href="membership-pricing.html" class="nav-link">Membership & Pricing</a></li>
+                    <li><a href="join-partnerships.html" class="nav-link">Join AIE / Partnerships</a></li>
+                    <li><a href="about.html" class="nav-link">About AIE</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+                    <li><a href="#" class="nav-button">Register / Login</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero hero-small hero-videos">
+            <div class="container">
+                <h1>Video Case Studies: Learn from Real-World Success</h1>
+                <p>Dive into comprehensive video analyses of entrepreneurial journeys, triumphs, and strategic lessons from diverse industries and regions.</p>
+                <div class="hero-actions">
+                    <a href="#video-list" class="button button-primary">Browse Case Studies</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="video-list" class="section-padded content-section">
+            <div class="container">
+                <h2 class="section-title">Our Exclusive Video Case Studies</h2>
+                <p class="section-subtitle">Access in-depth video content, requiring a password or PIN for each entry.</p>
+
+                <div class="video-grid">
+                    <!-- Video Case Study Card 1 -->
+                    <div class="video-card">
+                        <img src="https://via.placeholder.com/400x225?text=Case+Study+1" alt="Case Study 1 Thumbnail" class="video-thumbnail">
+                        <h3>Scaling a FinTech Startup in East Africa</h3>
+                        <p>An in-depth look at how a local FinTech company overcame regulatory hurdles and infrastructure challenges to achieve rapid growth.</p>
+                        <button class="button button-primary access-video-button" data-video-id="video1" data-password="aie123">Access Video</button>
+                    </div>
+                    <!-- Video Case Study Card 2 -->
+                    <div class="video-card">
+                        <img src="https://via.placeholder.com/400x225?text=Case+Study+2" alt="Case Study 2 Thumbnail" class="video-thumbnail">
+                        <h3>E-commerce Success in the American Rural Market</h3>
+                        <p>Discover the innovative logistics and marketing strategies that enabled a small business to thrive in a challenging geographical landscape.</p>
+                        <button class="button button-primary access-video-button" data-video-id="video2" data-password="aie456">Access Video</button>
+                    </div>
+                    <!-- Video Case Study Card 3 -->
+                    <div class="video-card">
+                        <img src="https://via.placeholder.com/400x225?text=Case+Study+3" alt="Case Study 3 Thumbnail" class="video-thumbnail">
+                        <h3>Social Enterprise for Water Access in West Africa</h3>
+                        <p>Explore the sustainable business model developed to bring clean water solutions to underserved communities, creating both profit and profound social impact.</p>
+                        <button class="button button-primary access-video-button" data-video-id="video3" data-password="aie789">Access Video</button>
+                    </div>
+                    <!-- Add more video cards as needed -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <span class="logo-aie">AIE</span>
+                <span class="logo-text">American Institute of Entrepreneurship</span>
+            </div>
+            <div class="footer-social">
+                <a href="#" class="social-icon">F</a> 
+                <a href="#" class="social-icon">in</a> 
+                <a href="#" class="social-icon">X</a> 
+                <a href="#" class="social-icon">YT</a>
+            </div>
+            <div class="footer-links">
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-service.html">Terms of Service</a>
+            </div>
+            <p class="footer-copyright">&copy; 2025 American Institute of Entrepreneurship. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Password Prompt Modal HTML -->
+    <div id="videoModalOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-button" id="closeModalButton">&times;</button>
+            <h3 id="modalTitle">Enter Password to Access Video</h3>
+            <input type="password" id="videoPasswordInput" placeholder="Enter password/PIN">
+            <div class="message" id="modalMessage"></div>
+            <button class="button button-primary" id="submitPasswordButton">Submit</button>
+            <div id="videoPlayerContainer" class="video-player-container" style="display:none;">
+                <!-- Video will be embedded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // --- Client-Side Script for Video Password Protection ---
+        // IMPORTANT SECURITY NOTE:
+        // This client-side password protection is FOR DEMONSTRATION PURPOSES ONLY.
+        // It is NOT secure and can be easily bypassed by anyone with basic browser development tools.
+        // For a real-world, secure application, video access MUST be controlled on the backend
+        // by checking user authentication, membership status, and serving secure video URLs/embeds.
+        // Your friend, the developer, will need to implement this securely on the server-side.
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const videoModalOverlay = document.getElementById('videoModalOverlay');
+            const closeModalButton = document.getElementById('closeModalButton');
+            const videoPasswordInput = document.getElementById('videoPasswordInput');
+            const submitPasswordButton = document.getElementById('submitPasswordButton');
+            const modalMessage = document.getElementById('modalMessage');
+            const videoPlayerContainer = document.getElementById('videoPlayerContainer');
+
+            let currentVideoId = null;
+            let currentCorrectPassword = null;
+            const videoData = {
+                // Hardcoded video data for client-side demo
+                // In a real app, this data would come securely from the backend
+                "video1": {
+                    password: "aie123",
+                    embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" // Example: Rick Astley - Never Gonna Give You Up
+                },
+                "video2": {
+                    password: "aie456",
+                    embedUrl: "https://www.youtube.com/embed/Cp_d7eJ2c14?autoplay=1" // Example: Short motivational video
+                },
+                "video3": {
+                    password: "aie789",
+                    embedUrl: "https://www.youtube.com/embed/LXb3EKWsInQ?autoplay=1" // Example: Another short video
+                }
+            };
+
+            document.querySelectorAll('.access-video-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    currentVideoId = this.dataset.videoId;
+                    currentCorrectPassword = this.dataset.password; // For client-side demo
+                    
+                    // Reset modal state
+                    videoPasswordInput.value = '';
+                    modalMessage.textContent = '';
+                    videoPlayerContainer.innerHTML = '';
+                    videoPlayerContainer.style.display = 'none';
+                    videoPasswordInput.style.display = 'block';
+                    submitPasswordButton.style.display = 'block';
+                    document.getElementById('modalTitle').textContent = 'Enter Password to Access Video';
+
+                    videoModalOverlay.style.display = 'flex'; // Show modal
+                });
+            });
+
+            closeModalButton.addEventListener('click', function() {
+                videoModalOverlay.style.display = 'none'; // Hide modal
+                videoPlayerContainer.innerHTML = ''; // Stop video playback
+            });
+
+            // Close modal if clicking outside content (optional)
+            videoModalOverlay.addEventListener('click', function(event) {
+                if (event.target === videoModalOverlay) {
+                    videoModalOverlay.style.display = 'none';
+                    videoPlayerContainer.innerHTML = '';
+                }
+            });
+
+            submitPasswordButton.addEventListener('click', function() {
+                const enteredPassword = videoPasswordInput.value;
+
+                if (enteredPassword === currentCorrectPassword) {
+                    modalMessage.textContent = '';
+                    videoPasswordInput.style.display = 'none';
+                    submitPasswordButton.style.display = 'none';
+                    document.getElementById('modalTitle').textContent = 'Video Playback'; // Update title
+
+                    const videoInfo = videoData[currentVideoId];
+                    if (videoInfo && videoInfo.embedUrl) {
+                        videoPlayerContainer.innerHTML = `
+                            <iframe src="${videoInfo.embedUrl}" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        `;
+                        videoPlayerContainer.style.display = 'block';
+                    } else {
+                        modalMessage.textContent = 'Video not found.';
+                    }
+                } else {
+                    modalMessage.textContent = 'Incorrect password. Please try again.';
+                }
+            });
+
+            // Allow hitting Enter key to submit password
+            videoPasswordInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    submitPasswordButton.click();
+                }
+            });
+        });
+
+        // The hamburger menu and active link highlighting would typically be in the main script.js
+        // For this specific new page, ensure the script.js is linked after the new embedded script.
+        // It's generally better to combine all page-specific JS into one script.js file if possible,
+        // or ensure correct loading order for dependencies.
+        // The common hamburger menu logic from script.js needs to be active on this page too.
+    </script>
+</body>
+</html>

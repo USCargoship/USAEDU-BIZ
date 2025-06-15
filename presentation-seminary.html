@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentations & Seminaries - American Institute of Entrepreneurship</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* --- Specific Styles for Presentation & Seminary Page --- */
+
+        /* Presentation Card styling (similar to video cards) */
+        .presentation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .presentation-card {
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px var(--shadow);
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .presentation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .presentation-card .presentation-thumbnail {
+            width: 100%;
+            height: 180px; /* Consistent thumbnail height */
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .presentation-card h3 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .presentation-card p {
+            font-size: 0.95em;
+            color: #666;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .presentation-card .button {
+            margin-top: auto;
+            align-self: center;
+        }
+
+        /* Modal / Password Overlay Styling (reused/adapted from video page) */
+        .modal-overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 90%; /* Increased max-width for presentations */
+            width: 800px; /* Fixed width for better embed display */
+            height: 90%; /* Allow height to adapt, but limit */
+            display: flex; /* Flexbox for content alignment */
+            flex-direction: column;
+            position: relative;
+        }
+        
+        @media (max-width: 900px) {
+            .modal-content {
+                width: 95%; /* Adjust width for smaller screens */
+                height: 85%;
+            }
+        }
+
+
+        .modal-content .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #aaa;
+            transition: color 0.3s ease;
+        }
+
+        .modal-content .close-button:hover {
+            color: #666;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .modal-content input[type="password"] {
+            width: calc(100% - 40px);
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1em;
+            text-align: center;
+        }
+
+        .modal-content .message {
+            color: red;
+            margin-top: -10px;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+
+        .modal-content .presentation-embed-container {
+            flex-grow: 1; /* Takes remaining space */
+            background-color: #eee;
+            border-radius: 5px;
+            overflow: hidden; /* Ensure iframe stays within bounds */
+            display: none; /* Hidden by default */
+            position: relative; /* For the iframe */
+        }
+        .modal-content .presentation-embed-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .presentation-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <div class="logo-container">
+                <a href="index.html" class="logo-link">
+                    <span class="logo-aie">AIE</span>
+                    <span class="logo-text">American Institute of Entrepreneurship</span>
+                </a>
+            </div>
+            <nav class="nav">
+                <ul class="nav-list" id="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="courses.html" class="nav-link">Courses & Learning</a></li>
+                    <li><a href="insights-inspiration.html" class="nav-link active">Insights & Inspiration</a></li>
+                    <li><a href="news-innovation.html" class="nav-link">News & Innovation</a></li>
+                    <li><a href="contribute.html" class="nav-link">Contribute to AIE</a></li>
+                    <li><a href="membership-pricing.html" class="nav-link">Membership & Pricing</a></li>
+                    <li><a href="join-partnerships.html" class="nav-link">Join AIE / Partnerships</a></li>
+                    <li><a href="about.html" class="nav-link">About AIE</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+                    <li><a href="#" class="nav-button">Register / Login</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero hero-small hero-presentations">
+            <div class="container">
+                <h1>Exclusive Presentations & Seminary Materials</h1>
+                <p>Gain access to invaluable insights and detailed academic discussions from leading experts in entrepreneurship and global development.</p>
+                <div class="hero-actions">
+                    <a href="#presentation-list" class="button button-primary">Browse Materials</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="presentation-list" class="section-padded content-section">
+            <div class="container">
+                <h2 class="section-title">In-Depth Learning Resources</h2>
+                <p class="section-subtitle">Unlock detailed presentations and seminar content with a password/PIN for each.</p>
+
+                <div class="presentation-grid">
+                    <div class="presentation-card">
+                        <img src="https://via.placeholder.com/400x225?text=Future+of+Work" alt="Future of Work Presentation" class="presentation-thumbnail">
+                        <h3>The Future of Work: Entrepreneurship in the AI Era</h3>
+                        <p>A comprehensive presentation on how AI is reshaping industries and creating new opportunities for entrepreneurs.</p>
+                        <button class="button button-primary access-presentation-button" data-presentation-id="pres1" data-password="pres123">Access Presentation</button>
+                    </div>
+                    <div class="presentation-card">
+                        <img src="https://via.placeholder.com/400x225?text=African+Markets" alt="African Markets Seminar" class="presentation-thumbnail">
+                        <h3>Navigating Emerging African Markets: A Strategic Seminar</h3>
+                        <p>Insights into market entry strategies, cultural nuances, and growth opportunities in key African economies.</p>
+                        <button class="button button-primary access-presentation-button" data-presentation-id="pres2" data-password="pres456">Access Presentation</button>
+                    </div>
+                    <div class="presentation-card">
+                        <img src="https://via.placeholder.com/400x225?text=Impact+Investing" alt="Impact Investing" class="presentation-thumbnail">
+                        <h3>Impact Investing for Social Change: A Deep Dive</h3>
+                        <p>Understanding the principles and practices of investing for both financial returns and positive social and environmental impact.</p>
+                        <button class="button button-primary access-presentation-button" data-presentation-id="pres3" data-password="pres789">Access Presentation</button>
+                    </div>
+                    </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <span class="logo-aie">AIE</span>
+                <span class="logo-text">American Institute of Entrepreneurship</span>
+            </div>
+            <div class="footer-social">
+                <a href="#" class="social-icon">F</a> 
+                <a href="#" class="social-icon">in</a> 
+                <a href="#" class="social-icon">X</a> 
+                <a href="#" class="social-icon">YT</a>
+            </div>
+            <div class="footer-links">
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-service.html">Terms of Service</a>
+            </div>
+            <p class="footer-copyright">&copy; 2025 American Institute of Entrepreneurship. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="presentationModalOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-button" id="closePresentationModalButton">×</button>
+            <h3 id="modalPresentationTitle">Enter Password to Access Presentation</h3>
+            <input type="password" id="presentationPasswordInput" placeholder="Enter password/PIN">
+            <div class="message" id="modalPresentationMessage"></div>
+            <button class="button button-primary" id="submitPresentationPasswordButton">Submit</button>
+            <div id="presentationEmbedContainer" class="presentation-embed-container" style="display:none;">
+                </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // --- Client-Side Script for Presentation Password Protection ---
+        // IMPORTANT SECURITY NOTE:
+        // This client-side password protection is FOR DEMONSTRATION PURPOSES ONLY.
+        // It is NOT secure and can be easily bypassed by anyone with basic browser development tools.
+        // For a real-world, secure application, access MUST be controlled on the backend
+        // by checking user authentication, membership status, and serving secure content URLs/embeds.
+        // Your friend, the developer, will need to implement this securely on the server-side.
+
+        // --- Copy Protection Disclaimer ---
+        // Client-side methods to prevent copying (like disabling right-click or text selection)
+        // are easily bypassed by tech-savvy users. True content protection requires server-side DRM
+        // or secure streaming solutions, which are beyond the scope of frontend HTML/CSS/JS.
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const modalOverlay = document.getElementById('presentationModalOverlay');
+            const closeModalButton = document.getElementById('closePresentationModalButton');
+            const passwordInput = document.getElementById('presentationPasswordInput');
+            const submitButton = document.getElementById('submitPresentationPasswordButton');
+            const messageDiv = document.getElementById('modalPresentationMessage');
+            const embedContainer = document.getElementById('presentationEmbedContainer');
+
+            let currentPresentationId = null;
+            let currentCorrectPassword = null;
+
+            const presentationData = {
+                // Hardcoded data for client-side demo
+                // In a real app, this data would come securely from the backend
+                "pres1": {
+                    password: "pres123",
+                    embedUrl: "https://docs.google.com/presentation/d/e/2PACX-1vRzT6c7P2Yg3Q5X9B3C9L0X0X0X0X0X0X0X0X0X0X0X0X0X0X0X0X0X/embed?start=false&loop=false&delayms=3000" // Replace with actual Google Slides embed URL
+                },
+                "pres2": {
+                    password: "pres456",
+                    embedUrl: "https://docs.google.com/presentation/d/e/2PACX-1vRzT6c7P2Yg3Q5X9B3C9L0X0X0X0X0X0X0X0X0X0X0X0X0X0X0X0X0Y/embed?start=false&loop=false&delayms=3000"
+                },
+                "pres3": {
+                    password: "pres789",
+                    embedUrl: "https://docs.google.com/presentation/d/e/2PACX-1vRzT6c7P2Yg3Q5X9B3C9L0X0X0X0X0X0X0X0X0X0X0X0X0X0X0X0X0Z/embed?start=false&loop=false&delayms=3000"
+                }
+            };
+
+            document.querySelectorAll('.access-presentation-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    currentPresentationId = this.dataset.presentationId;
+                    currentCorrectPassword = this.dataset.password;
+                    
+                    // Reset modal state
+                    passwordInput.value = '';
+                    messageDiv.textContent = '';
+                    embedContainer.innerHTML = '';
+                    embedContainer.style.display = 'none';
+                    passwordInput.style.display = 'block';
+                    submitButton.style.display = 'block';
+                    document.getElementById('modalPresentationTitle').textContent = 'Enter Password to Access Presentation';
+
+                    modalOverlay.style.display = 'flex'; // Show modal
+                });
+            });
+
+            closeModalButton.addEventListener('click', function() {
+                modalOverlay.style.display = 'none'; // Hide modal
+                embedContainer.innerHTML = ''; // Clear embedded content
+            });
+
+            modalOverlay.addEventListener('click', function(event) {
+                if (event.target === modalOverlay) {
+                    modalOverlay.style.display = 'none';
+                    embedContainer.innerHTML = '';
+                }
+            });
+
+            submitButton.addEventListener('click', function() {
+                const enteredPassword = passwordInput.value;
+
+                if (enteredPassword === currentCorrectPassword) {
+                    messageDiv.textContent = '';
+                    passwordInput.style.display = 'none';
+                    submitButton.style.display = 'none';
+                    document.getElementById('modalPresentationTitle').textContent = 'Viewing Presentation'; // Update title
+
+                    const presentationInfo = presentationData[currentPresentationId];
+                    if (presentationInfo && presentationInfo.embedUrl) {
+                        embedContainer.innerHTML = `
+                            <iframe src="${presentationInfo.embedUrl}" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+                        `;
+                        embedContainer.style.display = 'block';
+
+                        // Attempt to deter copying for the embedded content area (client-side only)
+                        embedContainer.style.userSelect = 'none'; // Disable text selection
+                        embedContainer.style.webkitUserSelect = 'none';
+                        embedContainer.style.msUserSelect = 'none';
+                        embedContainer.style.mozUserSelect = 'none';
+                        embedContainer.oncontextmenu = () => false; // Disable right-click
+
+                    } else {
+                        messageDiv.textContent = 'Presentation not found.';
+                    }
+                } else {
+                    messageDiv.textContent = 'Incorrect password. Please try again.';
+                }
+            });
+
+            passwordInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    submitButton.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

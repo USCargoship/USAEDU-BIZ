@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - American Institute of Entrepreneurship</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <div class="logo-container">
+                <a href="index.html" class="logo-link">
+                    <span class="logo-aie">AIE</span>
+                    <span class="logo-text">American Institute of Entrepreneurship</span>
+                </a>
+            </div>
+            <nav class="nav">
+                <ul class="nav-list" id="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="courses.html" class="nav-link">Courses & Learning</a></li>
+                    <li><a href="insights-inspiration.html" class="nav-link">Insights & Inspiration</a></li>
+                    <li><a href="news-innovation.html" class="nav-link">News & Innovation</a></li>
+                    <li><a href="contribute.html" class="nav-link">Contribute to AIE</a></li>
+                    <li><a href="membership-pricing.html" class="nav-link">Membership & Pricing</a></li>
+                    <li><a href="join-partnerships.html" class="nav-link">Join AIE / Partnerships</a></li>
+                    <li><a href="about.html" class="nav-link">About AIE</a></li>
+                    <li><a href="contact.html" class="nav-link active">Contact Us</a></li>
+                    <li><a href="#" class="nav-button">Register / Login</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero hero-small hero-contact">
+            <div class="container">
+                <h1>Contact Us: We're Here to Help</h1>
+                <p>Have a question, feedback, or looking to partner? Reach out to the American Institute of Entrepreneurship team.</p>
+                <div class="hero-actions">
+                    <a href="#contact-form-section" class="button button-primary">Send a Message</a>
+                    <a href="#contact-methods" class="button button-secondary">Other Ways to Connect</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact-methods" class="section-padded content-section">
+            <div class="container">
+                <h2 class="section-title">Multiple Ways to Connect</h2>
+                <p class="section-subtitle">Choose the method that works best for you.</p>
+
+                <div class="content-grid method-grid">
+                    <div class="content-card method-item">
+                        <h3>Email Us</h3>
+                        <p>For general inquiries or support.</p>
+                        <p><strong><a href="mailto:info@aie.org">info@aie.org</a></strong></p>
+                        <a href="mailto:info@aie.org" class="button button-small">Send Email</a>
+                    </div>
+                    <div class="content-card method-item">
+                        <h3>Call Us</h3>
+                        <p>For urgent matters or direct conversations.</p>
+                        <p><strong>[Your Phone Number]</strong></p>
+                        <a href="tel:[YourPhoneNumber]" class="button button-small">Call Now</a>
+                    </div>
+                    <div class="content-card method-item">
+                        <h3>Live Chat</h3>
+                        <p>Get instant answers from our support team.</p>
+                        <p>(Available during business hours)</p>
+                        <button class="button button-small" onclick="alert('Live Chat functionality requires backend integration!');">Start Chat</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact-form-section" class="section-padded bg-light-blue content-section">
+            <div class="container">
+                <h2 class="section-title">Send Us a Message</h2>
+                <p class="section-subtitle">Fill out the form below and we'll get back to you shortly.</p>
+                
+                <form class="contact-form" action="#" method="POST">
+                    <div class="form-group">
+                        <label for="name">Your Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject:</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message:</label>
+                        <textarea id="message" name="message" rows="6" required></textarea>
+                    </div>
+                    <button type="submit" class="button button-primary">Send Message</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="location-social" class="section-padded content-section">
+            <div class="container">
+                <h2 class="section-title">Our Location & Social Media</h2>
+                <p class="section-subtitle">Connect with us in person or online.</p>
+                <div class="map-placeholder">
+                    [Placeholder for Google Maps Embed of AIE Headquarters]
+                </div>
+                <p class="address-info mt-3">**AIE Headquarters:** [Your Address Here]</p>
+                
+                <div class="social-icons mt-3">
+                    <a href="#" target="_blank" aria-label="Facebook"><img src="https://via.placeholder.com/40?text=FB" alt="Facebook"></a>
+                    <a href="#" target="_blank" aria-label="LinkedIn"><img src="https://via.placeholder.com/40?text=IN" alt="LinkedIn"></a>
+                    <a href="#" target="_blank" aria-label="Twitter"><img src="https://via.placeholder.com/40?text=X" alt="Twitter"></a>
+                    <a href="#" target="_blank" aria-label="YouTube"><img src="https://via.placeholder.com/40?text=YT" alt="YouTube"></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <span class="logo-aie">AIE</span>
+                <span class="logo-text">American Institute of Entrepreneurship</span>
+            </div>
+            <div class="footer-social">
+                <a href="#" class="social-icon">F</a> 
+                <a href="#" class="social-icon">in</a> 
+                <a href="#" class="social-icon">X</a> 
+                <a href="#" class="social-icon">YT</a>
+            </div>
+            <div class="footer-links">
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-service.html">Terms of Service</a>
+            </div>
+            <p class="footer-copyright">&copy; 2025 American Institute of Entrepreneurship. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
