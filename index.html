@@ -3,71 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Africana Enterprise Advanced Education - Home</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>AIEA - Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+        }
+        .dashboard {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .section {
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .section:hover {
+            transform: scale(1.05);
+        }
+        .savoir-master {
+            background-color: #ffcc00;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="header-container">
-            <h1>Africana Enterprise Advanced Education</h1>
-            <p>Empowering Entrepreneurs with Knowledge and Action</p>
+    <div class="container">
+        <h1>American Institute of Entrepreneurship in Africa (AIEA)</h1>
+        <h2>🌟 Your AI Mentor & Knowledge Hub</h2>
+
+        <!-- SAVOIR MASTER AI -->
+        <div class="savoir-master" onclick="startSavoirMaster()">🤖 Ask SAVOIR MASTER AI</div>
+
+        <!-- Dashboard Sections Surrounding AI -->
+        <div class="dashboard">
+            <div class="section" onclick="navigateTo('courses.html')">📚 Courses & Learning</div>
+            <div class="section" onclick="navigateTo('mentorship.html')">🎓 Mentorship & Networking</div>
+            <div class="section" onclick="navigateTo('partnerships.html')">🤝 Partnerships & Membership</div>
+            <div class="section" onclick="navigateTo('insights.html')">📊 Insights & Research</div>
+            <div class="section" onclick="navigateTo('news.html')">📰 News & Updates</div>
+            <div class="section" onclick="navigateTo('register.html')">📝 User Registration</div>
         </div>
-    </header>
 
-    <nav>
-        <ul class="nav-menu">
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="courses.html">Courses & Learning</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-    </nav>
-
-    <main>
-        <section class="hero">
-            <img src="https://via.placeholder.com/1200x400?text=Africana+Enterprise" alt="Africana Enterprise Banner">
-            <div class="hero-content">
-                <h2>Unlock Your Entrepreneurial Potential</h2>
-                <p>Join a thriving community and access expert-led programs designed to shape visionary leaders.</p>
-                <button class="btn-primary">Apply Now</button>
-                <button class="btn-secondary">Learn More</button>
-            </div>
-        </section>
-
-        <section class="highlights">
-            <h2>Why Choose Africana Enterprise?</h2>
-            <div class="feature-grid">
-                <div class="feature">
-                    <img src="https://via.placeholder.com/200" alt="Expert Faculty">
-                    <h3>Expert Faculty</h3>
-                    <p>Learn from business leaders and startup veterans.</p>
-                </div>
-                <div class="feature">
-                    <img src="https://via.placeholder.com/200" alt="Flexible Learning">
-                    <h3>Flexible Learning</h3>
-                    <p>Access online courses anytime, anywhere.</p>
-                </div>
-                <div class="feature">
-                    <img src="https://via.placeholder.com/200" alt="Certified Programs">
-                    <h3>Certified Programs</h3>
-                    <p>Earn recognized certificates to enhance your career.</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 Africana Enterprise Advanced Education. All rights reserved.</p>
-    </footer>
+        <footer class="footer">
+            <p>© 2025 AIEA. All rights reserved.</p>
+        </footer>
+    </div>
 
     <script>
-        document.querySelector('.btn-primary').addEventListener('click', function() {
-            window.location.href = "apply.html";
-        });
+        function navigateTo(page) {
+            alert("Redirecting to: " + page);
+            location.href = page;
+        }
 
-        document.querySelector('.btn-secondary').addEventListener('click', function() {
-            window.location.href = "courses.html";
-        });
+        function startSavoirMaster() {
+            alert("🔹 SAVOIR MASTER is here to help! Ask your questions.");
+            // Future implementation: AI chat system integration
+        }
     </script>
 </body>
 </html>
