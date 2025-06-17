@@ -33,19 +33,22 @@
 <body>
     <h1>Africana Enterprise Dashboard</h1>
     <div class="dashboard">
-        <div class="section" onclick="location.href='#courses'">📚 Courses</div>
-        <div class="section" onclick="location.href='#mentorship'">🎓 Mentorship</div>
-        <div class="section" onclick="location.href='#registration'">📝 Registration</div>
-        <div class="section" onclick="location.href='#payments'">💳 Payments</div>
-        <div class="section" onclick="location.href='#study-groups'">👥 Study Groups</div>
+        <div class="section" onclick="navigateTo('courses.html')">📚 Courses</div>
+        <div class="section" onclick="navigateTo('mentorship.html')">🎓 Mentorship</div>
+        <div class="section" onclick="navigateTo('registration.html')">📝 Registration</div>
+        <div class="section" onclick="navigateTo('payments.html')">💳 Payments</div>
+        <div class="section" onclick="navigateTo('study-groups.html')">👥 Study Groups</div>
     </div>
+
+    <footer class="footer">
+        <p>© 2025 Africana Enterprise. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function navigateTo(page) {
+            alert("Redirecting to: " + page);
+            location.href = page;
+        }
+    </script>
 </body>
-<script>
-    document.querySelectorAll('.section').forEach(section => {
-        section.addEventListener('click', () => {
-            alert("You clicked on " + section.innerText);
-        });
-    });
-</script>
-    </html>
-Next Steps
+</html>
